@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'raven-osx' target in the 'raven-osx' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
