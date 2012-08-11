@@ -156,8 +156,8 @@ RavenClient *__gRavenClientInstance;
     
     CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
     
-    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC
-                                          length:sizeof(cHMAC)];
+    NSData *HMAC = [[[NSData alloc] initWithBytes:cHMAC
+                                          length:sizeof(cHMAC)] autorelease];
     
     return [self base64forData:HMAC];
 }
@@ -181,7 +181,7 @@ RavenClient *__gRavenClientInstance;
     [dateFormatter setTimeZone:timeZone];
     
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-    NSString *nowString = [[dateFormatter stringFromDate:[NSDate date]] autorelease];
+    NSString *nowString = [dateFormatter stringFromDate:[NSDate date]];
     
     NSMutableDictionary *exceptionInfo = [NSMutableDictionary dictionary];
     [exceptionInfo setObject:self.projectId forKey:@"project"];
@@ -246,7 +246,7 @@ RavenClient *__gRavenClientInstance;
         else {
             NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse *) response;
             if (200 != [urlResponse statusCode]) {
-                NSLog(@"Error posting to sentry (status code: %lu) -- headers:%@, body:%@", [urlResponse statusCode], [urlResponse allHeaderFields], (NSString *)[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+                NSLog(@"Error posting to sentry (status code: %lu) -- headers:%@, body:%@", [urlResponse statusCode], [urlResponse allHeaderFields], (NSString *)[[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
             }
         }        
     }
